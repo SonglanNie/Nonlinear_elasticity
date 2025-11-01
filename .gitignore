@@ -1,0 +1,29 @@
+# Python Virtual Environments
+# Ignore the Firedrake virtual environment
+venv-firedrake/
+venv/
+*.venv/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Source Installations
+# Ignore if you have local checkouts of Firedrake/PETSc
+firedrake/
+petsc/
+petsc-*.log
+
+# IDE & Editor Config
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Firedrake/ParaView Output Files
+output/
+*.pvd
+*.vtu

@@ -184,7 +184,8 @@ def svk_Newt(L, u, du, v, g, N_Newt, tol, LS_Type, N_eval, N_lin, u_Newt = None)
         u_err = numpy.empty(N_Newt)
     G = G_svk(u, v, g)
     G_assem = assemble(G, bcs = bc) # BCs important 
-    G_vector = G_assem.vector().array()
+    # G_vector = G_assem.vector().array()
+    G_vector = G_assem.dat.data_ro
     u_res_0 = max(numpy.linalg.norm(G_vector), 2e-16)
     N_eval += 1      
     for j in range(N_Newt):
@@ -198,7 +199,8 @@ def svk_Newt(L, u, du, v, g, N_Newt, tol, LS_Type, N_eval, N_lin, u_Newt = None)
         # print(W14norm(du_sol))
         G = G_svk(u, v, g)
         G_assem = assemble(G, bcs = bc) # BCs important 
-        G_vector = G_assem.vector().array()
+        # G_vector = G_assem.vector().array()
+        G_vector = G_assem.dat.data_ro
         u_res = numpy.linalg.norm(G_vector)
         u_res_scaled = u_res/u_res_0
         print("scaled residual: " + str(u_res_scaled))
@@ -218,11 +220,13 @@ def svk_Newt(L, u, du, v, g, N_Newt, tol, LS_Type, N_eval, N_lin, u_Newt = None)
                     # print("" + str(i) + " in N_line")
                     G = G_svk(u, v, g)
                     G_assem = assemble(G, bcs = bc) # BCs important 
-                    G_vector = G_assem.vector().array()
+                    # G_vector = G_assem.vector().array()
+                    G_vector = G_assem.dat.data_ro
                     u_norm = numpy.linalg.norm(G_vector) # residual norm
                     G_new = G_svk(u + beta*du_sol, v, g)
                     G_assem_new = assemble(G_new, bcs = bc)
-                    G_vector_new = G_assem_new.vector().array()
+                    # G_vector_new = G_assem_new.vector().array()
+                    G_vector_new = G_assem_new.dat.data_ro
                     u_norm_new = numpy.linalg.norm(G_vector_new)
                     N_eval += 2
                     if u_norm_new > (1 - 0.01*beta)*u_norm:
